@@ -38,32 +38,10 @@ class ItemsListAdapter(): ListAdapter<Items.Content, ItemsListAdapter.ItemVewHol
                 imageView.setOnClickListener() {
                     when(bindingAdapterPosition){
                         4 -> {
-                            val c = Calendar.getInstance()
-                            val year = c.get(Calendar.YEAR)
-                            val month = c.get(Calendar.MONTH)
-                            val day = c.get(Calendar.DAY_OF_MONTH)
-                            val dcpopup = DatePickerDialog(parent.context,DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                                val months = monthOfYear+1
-                                binding.textInputEditText.setText("$monthOfYear/$dayOfMonth/$year")
-                            }, year, month, day)
-                            dcpopup.show()
+                          setDate()
                         }
                         5 -> {
-                            var selectedItemIndex = 0
-                            val arrItems = arrayOf("Male", "Female")
-                            var selectedItem = arrItems[selectedItemIndex]
-                            MaterialAlertDialogBuilder(parent.context)
-                                .setTitle("Select gender")
-                                .setSingleChoiceItems(arrItems, selectedItemIndex) { dialog, which ->
-                                    selectedItemIndex = which
-                                    selectedItem = arrItems[which]
-                                }
-                                .setPositiveButton("Ok") { dialog, which ->
-                                    textInputEditText.setText(selectedItem)
-                                }
-                                .setNeutralButton("Cancel"){dialog, which ->
-
-                                }.show()
+                          setGender()
 
                         }
                         else -> {}
@@ -71,6 +49,36 @@ class ItemsListAdapter(): ListAdapter<Items.Content, ItemsListAdapter.ItemVewHol
                 }
 
             }
+        }
+
+        private fun setGender() {
+            var selectedItemIndex = 0
+            val arrItems = arrayOf("Male", "Female")
+            var selectedItem = arrItems[selectedItemIndex]
+            MaterialAlertDialogBuilder(parent.context)
+                .setTitle("Select gender")
+                .setSingleChoiceItems(arrItems, selectedItemIndex) { dialog, which ->
+                    selectedItemIndex = which
+                    selectedItem = arrItems[which]
+                }
+                .setPositiveButton("Ok") { dialog, which ->
+                    binding.textInputEditText.setText(selectedItem)
+                }
+                .setNeutralButton("Cancel"){dialog, which ->
+
+                }.show()
+        }
+
+        private fun setDate() {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+            val dcpopup = DatePickerDialog(parent.context,DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val months = monthOfYear+1
+                binding.textInputEditText.setText("$monthOfYear/$dayOfMonth/$year")
+            }, year, month, day)
+            dcpopup.show()
         }
 
     }
