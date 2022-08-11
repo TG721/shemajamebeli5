@@ -1,5 +1,7 @@
 package com.example.shemajamebeli5.ui
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +14,7 @@ import com.example.shemajamebeli5.MainViewModel
 import com.example.shemajamebeli5.MainViewModelFactory
 import com.example.shemajamebeli5.adapter.ItemsListAdapter
 import com.example.shemajamebeli5.databinding.ActivityMainBinding
+import com.example.shemajamebeli5.model.Items
 import com.example.shemajamebeli5.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private val adapter by lazy { ItemsListAdapter() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
