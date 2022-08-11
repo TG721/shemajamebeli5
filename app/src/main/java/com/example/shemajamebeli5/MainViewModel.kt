@@ -11,23 +11,24 @@ import retrofit2.Response
 
 
 class MainViewModel(private val repository: Repository): ViewModel() {
-    private val _myState= MutableStateFlow<MyResponseState<Items>>(MyResponseState.Empty()) //mutable state flow
+    private val _myState =
+        MutableStateFlow<MyResponseState<Items>>(MyResponseState.Empty()) //mutable state flow
     val myState: StateFlow<MyResponseState<Items>> = _myState //immutable state flow
 
-    fun getInfo(){
+    fun getInfo() {
         viewModelScope.launch {
             _myState.emit(MyResponseState.Loading())
             val response: Response<Items> = repository.getPost()
             val body: Items? = response.body()
             if (response.isSuccessful && response.body() != null) {
                 _myState.emit(MyResponseState.Success(body!!))
-            }
-            else {
+            } else {
 //            _myState.value = MyResponseState.Error(response.errorBody().toString())
                 _myState.emit(MyResponseState.Error(response.errorBody().toString()))
             }
         }
     }
+}
 
     sealed class MyResponseState<T>{
         data class Success<T>(val items: T) : MyResponseState<T>()
@@ -36,4 +37,4 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         class Empty<T> : MyResponseState<T>()
 
     }
-}
+

@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shemajamebeli5.MainViewModel
 import com.example.shemajamebeli5.MainViewModelFactory
+import com.example.shemajamebeli5.MyResponseState
 import com.example.shemajamebeli5.adapter.ItemsListAdapter
 import com.example.shemajamebeli5.databinding.ActivityMainBinding
 import com.example.shemajamebeli5.model.Items
@@ -44,14 +45,14 @@ class MainActivity : AppCompatActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.myState.collect{
                     when(it){
-                        is MainViewModel.MyResponseState.Loading -> {
+                        is MyResponseState.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
                         }
-                        is MainViewModel.MyResponseState.Error -> {
+                        is MyResponseState.Error -> {
                             binding.finalText.text = it.message
                             binding.progressBar.visibility = View.GONE
                         }
-                        is MainViewModel.MyResponseState.Success -> {
+                        is MyResponseState.Success -> {
                             binding.progressBar.visibility = View.GONE
                             adapter.submitList(it.items.content)
 //                            binding.finalText.text = it.items.toString()
