@@ -12,5 +12,5 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    fun getData() = retrofit.create(MyApi::class.java)
+    fun getData(): MyApi = retrofit.create(MyApi::class.java)
 }

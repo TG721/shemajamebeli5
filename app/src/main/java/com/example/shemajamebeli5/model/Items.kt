@@ -14,7 +14,7 @@ data class Items(
         val icon: String,
         @SerializedName("is_active")
         val isActive: Boolean,
-        val keyboard: String,
+        val keyboard: String?,
         val required: Boolean
     )
 
